@@ -1,0 +1,82 @@
+﻿
+
+@model WebApplication1.Models.ViewModels.RecipeVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Recipe</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.Recipe.RecipeTitle)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => Model.Recipe.RecipeTitle)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => Model.Recipe.Image1)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="/uploads/@Html.DisplayFor(model => Model.Recipe.Image1)" alt="" style="width:200px;height:200px;" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => Model.Recipe.Image2)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="/uploads/@Html.DisplayFor(model => Model.Recipe.Image2)" alt="" style="width:200px;height:200px;" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => Model.Recipe.Image3)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="/uploads/@Html.DisplayFor(model => Model.Recipe.Image3)" alt="" style="width:200px;height:200px;" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => Model.Recipe.DateAdded)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Recipe.DateAdded
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => Model.Recipe.Level)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => Model.Recipe.Level.LevelId)
+        </dd>
+        <dt class="col-sm-10">
+            @Html.DisplayNameFor(model => Model.Recipe.Steps)
+        </dt>
+        @foreach (Steps step in Model.Steps)
+        {
+
+            <dd class="col-sm-10">
+                @step.StepName
+            </dd>
+
+        }
+        <dt class="col-sm-10">
+            @Html.DisplayNameFor(model => Model.Recipe.Ingredient)
+        </dt>
+        @foreach (Ingredient ingr in Model.Ingredient)
+        {
+
+            <dd class="col-sm-10">
+                @ingr.IngredientName
+            </dd>
+
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Recipe.RecipeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+
+    <form asp-controller="Recipe" method="post">
+        <input type="submit" value="Print" class="btn btn-primary" asp-action="PrintDataNew" asp-route-id="@Model.Recipe.RecipeId" />
+    </form>
+</div>

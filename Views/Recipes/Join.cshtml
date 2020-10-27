@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebApplication1.Models.ViewModels.NewRecipeVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LevelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Step)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipeTitle)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LevelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Step)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RecipeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RecipeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RecipeId">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

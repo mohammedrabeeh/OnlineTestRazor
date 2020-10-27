@@ -1,0 +1,107 @@
+﻿@model WebApplication1.Models.Recipe
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Recipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Recipe" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RecipeTitle" class="control-label"></label>
+                <input asp-for="RecipeTitle" class="form-control" />
+                <span asp-validation-for="RecipeTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image1" class="control-label"></label>
+                <input type="file" class="form-control" name="image1" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Image2" class="control-label"></label>
+                <input type="file" class="form-control" name="image2" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Image3" class="control-label"></label>
+                <input type="file" class="form-control" name="image3" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Level</label>
+                <select asp-for="LevelId" class="form-control" asp-items="ViewBag.LevelId"></select>
+            </div>
+            <div class="form-group">
+                <label for="StepsTextBox" class="control-label">Steps</label>
+                <div>
+                    <input name="StepsTextBox" type="text" class="form-control" style="width:270px;float:left;" />
+                    <input id="buttonAddSteps" type="button" value="Add" class="btn btn-primary" style="float: left;" />
+                </div>
+                <div id="StepsTextBoxContainer">
+                    <!--Textboxes will be added here -->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-group">
+                <label for="IngredientsTextbox" class="control-label">Ingredients</label>
+                <div>
+                    <input name="IngredientsTextbox" type="text" class="form-control" style="width:270px;float:left;" />
+                    <input id="buttonAddIngredients" type="button" value="Add" class="btn btn-primary" style="float: left;" />
+                </div>
+                <div id="IngredientsTextBoxContainer">
+                    <!--Textboxes will be added here -->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" formaction="Create" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+    <form asp-controller="Level" method="post">
+        <input type="submit" value="Print" class="btn btn-primary" asp-action="PrintThis" asp-route-id="7" />
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(function () {
+    $("#buttonAddSteps").bind("click", function () {
+        var div = $("<div />");
+        div.html(GenerateStepsTextbox(""));
+        $("#StepsTextBoxContainer").append(div);
+    });
+    $("#buttonAddIngredients").bind("click", function () {
+        var div = $("<div />");
+        div.html(GenerateIngredientsTextbox(""));
+        $("#IngredientsTextBoxContainer").append(div);
+    });
+    $("body").on("click", ".remove", function () {
+        $(this).closest("div").remove();
+    });
+});
+function GenerateStepsTextbox(value) {
+    return '<div><input name = "StepsTextBox" type = "text" value = "' + value + '" class="form-control" style = "width:230px;float:left;" /> ' +
+            '<input type="button" value="Remove" class="btn btn-primary" style="float:left;" /></div>'
+    }
+    function GenerateIngredientsTextbox(value) {
+        return '<div><input name = "IngredientsTextBox" type = "text" value = "' + value + '" class="form-control" style = "width:230px;float:left;" /> ' +
+            '<input type="button" value="Remove" class="btn btn-primary" style="float:left;" /></div>'
+    }
+</script> 

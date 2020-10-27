@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApplication1.Models.ViewModels.RecipeVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.RecipeTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.Image1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.Image2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.Image3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipe.Level)
+            </th>
+            <th>
+                Steps
+            </th>
+            <th>
+                Ingredients
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipe.RecipeTitle)
+            </td>
+            <td>
+                <img src="/uploads/@Html.DisplayFor(modelItem => item.Recipe.Image1)" alt="" style="width:20px;height:20px;" />
+
+            </td>
+            <td>
+                <img src="/uploads/@Html.DisplayFor(modelItem => item.Recipe.Image2)" alt="" style="width:20px;height:20px;" />
+            </td>
+            <td>
+                <img src="/uploads/@Html.DisplayFor(modelItem => item.Recipe.Image3)" alt="" style="width:20px;height:20px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipe.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipe.Level.LevelName)
+            </td>
+            <td>
+
+                @foreach (var step in item.Steps)
+                {
+                    @Html.DisplayFor(modelItem => step.StepName)<br />
+                }
+
+            </td>
+            <td>
+
+                @foreach (var ingr in item.Ingredient)
+                {
+                    @Html.DisplayFor(modelItem => ingr.IngredientName)<br />
+                }
+
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Recipe.RecipeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Recipe.RecipeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Recipe.RecipeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
